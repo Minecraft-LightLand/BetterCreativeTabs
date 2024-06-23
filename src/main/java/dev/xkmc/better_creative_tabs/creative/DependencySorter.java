@@ -1,6 +1,6 @@
-package dev.xkmc.bettercreativetabs.creative;
+package dev.xkmc.better_creative_tabs.creative;
 
-import dev.xkmc.bettercreativetabs.init.BCTConfig;
+import dev.xkmc.better_creative_tabs.init.BCTConfig;
 import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.CreativeModeTab;

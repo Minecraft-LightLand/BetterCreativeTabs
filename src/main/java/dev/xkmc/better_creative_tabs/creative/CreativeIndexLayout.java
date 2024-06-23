@@ -1,7 +1,7 @@
-package dev.xkmc.bettercreativetabs.creative;
+package dev.xkmc.better_creative_tabs.creative;
 
-import dev.xkmc.bettercreativetabs.init.BetterCreativeTabs;
-import dev.xkmc.bettercreativetabs.util.MenuLayoutConfig;
+import dev.xkmc.better_creative_tabs.init.BetterCreativeTabs;
+import dev.xkmc.better_creative_tabs.util.MenuLayoutConfig;
 import net.minecraft.resources.ResourceLocation;
 
 public class CreativeIndexLayout {

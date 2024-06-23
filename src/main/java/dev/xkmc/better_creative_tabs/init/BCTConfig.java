@@ -1,4 +1,4 @@
-package dev.xkmc.bettercreativetabs.init;
+package dev.xkmc.better_creative_tabs.init;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.ModLoadingContext;

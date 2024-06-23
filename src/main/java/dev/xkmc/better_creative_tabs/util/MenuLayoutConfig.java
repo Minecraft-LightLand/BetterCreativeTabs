@@ -1,5 +1,5 @@
 
-package dev.xkmc.bettercreativetabs.util;
+package dev.xkmc.better_creative_tabs.util;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
@@ -15,8 +15,8 @@ import java.util.HashMap;
 public class MenuLayoutConfig {
 	public ResourceLocation id;
 	public int height;
-	public HashMap<String, Rect> side;
-	public HashMap<String, Rect> comp;
+	public HashMap<String, Rect> side = new HashMap<>();
+	public HashMap<String, Rect> comp = new HashMap<>();
 
 	public MenuLayoutConfig() {
 	}

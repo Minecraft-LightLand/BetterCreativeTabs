@@ -1,7 +1,7 @@
-package dev.xkmc.bettercreativetabs.creative;
+package dev.xkmc.better_creative_tabs.creative;
 
-import dev.xkmc.bettercreativetabs.init.BetterCreativeTabs;
-import dev.xkmc.bettercreativetabs.init.BCTClient;
+import dev.xkmc.better_creative_tabs.init.BetterCreativeTabs;
+import dev.xkmc.better_creative_tabs.init.BCTClient;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraftforge.api.distmarker.Dist;

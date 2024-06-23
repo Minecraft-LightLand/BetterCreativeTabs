@@ -90,69 +90,11 @@ repositories {
     flatDir {
         dirs 'libs'
     }
-    maven { url 'https://jitpack.io' }
-    maven {
-        // Location of the maven that hosts JEI files (and TiC)
-        name 'Progwml6 maven'
-        url 'https://dvs1.progwml6.com/files/maven'
-    }
-    maven { // Registrate
-        url "https://maven.tterrag.com/"
-    }
-    maven {
-        // Location of the maven for vazkii's mods
-        name 'blamejared'
-        url 'https://maven.blamejared.com'
-    }
-    maven {
-        url 'https://www.cursemaven.com'
-        content {
-            includeGroup "curse.maven"
-        }
-    }
-    maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
-    maven {
-        url = "https://maven.theillusivec4.top/"
-    }
 }
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    compileOnly(annotationProcessor("com.github.llamalad7.mixinextras:mixinextras-common:${mixin_extras_version}"))
-    implementation("com.github.llamalad7.mixinextras:mixinextras-forge:${mixin_extras_version}")
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
-    implementation fg.deobf("dev.xkmc.l2library:l2library:${l2library_version}-slim")
-    implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
-    implementation fg.deobf("dev.xkmc.l2serial:l2serial:1.2.2")
-
-    implementation fg.deobf("mezz.jei:jei-${jei_minecraft_version}:${jei_version}")
-    //implementation fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
-    implementation fg.deobf("curse.maven:curios-309927:5266541")
-
-    //runtimeOnly fg.deobf('curse.maven:wthit-forge-455982:4512108')
-    //runtimeOnly fg.deobf('curse.maven:badpackets-615134:4438956')
-    //runtimeOnly fg.deobf('curse.maven:attributefix-280510:4445193')
-    //runtimeOnly fg.deobf('curse.maven:max-health-fix-492246:4447240')
-
-    //runtimeOnly fg.deobf('curse.maven:charm-of-undying-316873:3927421')
-    //runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.19.2-76")
-
-    //runtimeOnly fg.deobf('curse.maven:the-twilight-forest-227639:4516391')
-
-    // TODO debug only
-    runtimeOnly fg.deobf("curse.maven:mysterious-mountain-lib-368098:4589606")
-    runtimeOnly fg.deobf("curse.maven:umapyoi-776121:4589608")
-    //runtimeOnly fg.deobf("curse.maven:irons-spells-n-spellbooks-855414:4629398")
-    runtimeOnly fg.deobf("curse.maven:caelus-308989:4581481")
-    //runtimeOnly fg.deobf("curse.maven:geckolib-388172:4627674")
-    //runtimeOnly fg.deobf("curse.maven:playeranimator-658587:4587214")
-
-    runtimeOnly fg.deobf("curse.maven:kotlin-for-forge-351264:4778283")
-    runtimeOnly fg.deobf("curse.maven:libipn-679177:4870127")
-    runtimeOnly fg.deobf("curse.maven:inventory-profiles-next-495267:4813458")
-    runtimeOnly fg.deobf("curse.maven:apothic-attributes-898963:4954000")
-    runtimeOnly fg.deobf("curse.maven:placebo-283644:5098182")
-
 }
 
 // Example for how to get properties into the manifest for reading at runtime.

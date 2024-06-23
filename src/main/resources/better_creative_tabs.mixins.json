@@ -1,11 +1,10 @@
 {
   "required": true,
   "priority": 1000,
-  "package": "dev.xkmc.bettercreativetabs.mixin",
+  "package": "dev.xkmc.better_creative_tabs.mixin",
   "compatibilityLevel": "JAVA_17",
-  "refmap": "l2tabs.refmap.json",
+  "refmap": "better_creative_tabs.refmap.json",
   "mixins": [
-	"ServerEntityMixin"
   ],
   "client": [
 	"CreativeModeInventoryScreenAccessor"

@@ -1,4 +1,4 @@
-package dev.xkmc.bettercreativetabs.mixin;
+package dev.xkmc.better_creative_tabs.mixin;
 
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.world.item.CreativeModeTab;

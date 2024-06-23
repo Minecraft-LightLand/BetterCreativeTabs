@@ -1,7 +1,7 @@
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 
-package dev.xkmc.bettercreativetabs.init;
+package dev.xkmc.better_creative_tabs.init;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
 

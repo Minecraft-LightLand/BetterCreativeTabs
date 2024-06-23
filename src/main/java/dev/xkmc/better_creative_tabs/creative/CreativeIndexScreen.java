@@ -1,7 +1,7 @@
-package dev.xkmc.bettercreativetabs.creative;
+package dev.xkmc.better_creative_tabs.creative;
 
-import dev.xkmc.bettercreativetabs.mixin.CreativeModeInventoryScreenAccessor;
-import dev.xkmc.bettercreativetabs.util.MenuLayoutConfig;
+import dev.xkmc.better_creative_tabs.mixin.CreativeModeInventoryScreenAccessor;
+import dev.xkmc.better_creative_tabs.util.MenuLayoutConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -163,7 +163,9 @@ public class CreativeIndexScreen extends Screen {
 	}
 
 	protected void renderLabels(GuiGraphics g, int mx, int my) {
-		g.drawString(font, TITLE, 8, 6, 4210752, false);
+		int maxPage = (tabs.size() - 1) / MAX + 1;
+		String count = "(" + (page + 1) + "/" + maxPage + ")";
+		g.drawString(font, TITLE.copy().append(count), 8, 6, 4210752, false);
 	}
 
 	@Nullable
