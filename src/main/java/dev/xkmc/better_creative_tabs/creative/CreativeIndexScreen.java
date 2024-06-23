@@ -22,7 +22,7 @@ import java.util.*;
 public class CreativeIndexScreen extends Screen {
 
 	private static final MenuLayoutConfig MANAGER = CreativeIndexLayout.get();
-	private static final Component TITLE = Component.literal("Creative Tabs");
+	private static final Component TITLE = Component.translatable("better-creative-tabs.creative_index");
 	private static final int MAX = 9 * 9;
 
 	public CreativeIndexScreen(int page) {
@@ -164,7 +164,7 @@ public class CreativeIndexScreen extends Screen {
 
 	protected void renderLabels(GuiGraphics g, int mx, int my) {
 		int maxPage = (tabs.size() - 1) / MAX + 1;
-		String count = "(" + (page + 1) + "/" + maxPage + ")";
+		String count = " (" + (page + 1) + "/" + maxPage + ")";
 		g.drawString(font, TITLE.copy().append(count), 8, 6, 4210752, false);
 	}
 
