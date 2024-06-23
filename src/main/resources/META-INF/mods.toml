@@ -1,0 +1,35 @@
+modLoader="javafml"
+loaderVersion="[46,)"
+license="All rights reserved"
+[[mods]]
+modId="l2tabs"
+version="${file.jarVersion}" #mandatory
+displayName="L2 Tabs" #mandatory
+logoFile="l2tabs.png" #optional
+credits="Thanks for this example mod goes to Java" #optional
+authors="Love, Cheese and small house plants" #optional
+description='''
+'''
+[[dependencies.l2tabs]]
+    modId="forge"
+    mandatory=true
+    versionRange="[46.0.0,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.l2tabs]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20,1.21)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.l2tabs]]
+    modId="l2library"
+    mandatory=true
+    versionRange="[2.4.0,)"
+    ordering="AFTER"
+    side="BOTH"
+[[dependencies.l2tabs]]
+    modId="curios"
+    mandatory=false
+    versionRange="[5.3.4,)"
+    side="BOTH"

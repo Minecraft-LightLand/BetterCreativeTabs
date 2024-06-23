@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "priority": 1000,
+  "package": "dev.xkmc.bettercreativetabs.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "l2tabs.refmap.json",
+  "mixins": [
+	"ServerEntityMixin"
+  ],
+  "client": [
+	"CreativeModeInventoryScreenAccessor"
+  ],
+  "injectors": {
+	"defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}
