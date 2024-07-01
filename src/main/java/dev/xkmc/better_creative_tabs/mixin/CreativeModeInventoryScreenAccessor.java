@@ -12,7 +12,7 @@ import java.util.List;
 @Mixin(CreativeModeInventoryScreen.class)
 public interface CreativeModeInventoryScreenAccessor {
 
-	@Accessor
+	@Accessor(remap = false)
 	List<CreativeTabsScreenPage> getPages();
 
 	@Invoker
