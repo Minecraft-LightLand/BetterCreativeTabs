@@ -2,7 +2,7 @@ package dev.xkmc.better_creative_tabs.mixin;
 
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraftforge.client.gui.CreativeTabsScreenPage;
+import net.neoforged.neoforge.client.gui.CreativeTabsScreenPage;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;

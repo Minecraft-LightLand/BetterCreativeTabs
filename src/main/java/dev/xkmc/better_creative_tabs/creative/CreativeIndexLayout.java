@@ -2,13 +2,12 @@ package dev.xkmc.better_creative_tabs.creative;
 
 import dev.xkmc.better_creative_tabs.init.BetterCreativeTabs;
 import dev.xkmc.better_creative_tabs.util.MenuLayoutConfig;
-import net.minecraft.resources.ResourceLocation;
 
 public class CreativeIndexLayout {
 
 	public static MenuLayoutConfig get() {
 		var ans = new MenuLayoutConfig();
-		ans.id = new ResourceLocation(BetterCreativeTabs.MODID, "creative_index");
+		ans.id = BetterCreativeTabs.loc("creative_index");
 		ans.height = 201;
 		var rect = new MenuLayoutConfig.Rect();
 		rect.x = 8;

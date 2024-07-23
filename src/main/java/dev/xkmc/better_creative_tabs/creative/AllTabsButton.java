@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class AllTabsButton extends Button {
 
-	public static final ResourceLocation TEX = new ResourceLocation(BetterCreativeTabs.MODID, "textures/gui/icon.png");
+	public static final ResourceLocation TEX = BetterCreativeTabs.loc("textures/gui/icon.png");
 
 	protected AllTabsButton(int x, int y, int w, int h, Component tex, OnPress action) {
 		super(x, y, w, h, tex, action, DEFAULT_NARRATION);

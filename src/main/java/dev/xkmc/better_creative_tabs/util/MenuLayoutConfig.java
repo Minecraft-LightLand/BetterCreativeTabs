@@ -6,8 +6,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.Slot;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -22,7 +20,7 @@ public class MenuLayoutConfig {
 	}
 
 	public ResourceLocation getTexture() {
-		return new ResourceLocation(id.getNamespace(), "textures/gui/container/" + id.getPath() + ".png");
+		return id.withPath(e -> "textures/gui/container/" + e + ".png");
 	}
 
 	public Rect getComp(String key) {
@@ -41,12 +39,10 @@ public class MenuLayoutConfig {
 		return this.height - 82;
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	public ScreenRenderer getRenderer(AbstractContainerScreen<?> gui) {
 		return new ScreenRenderer(gui);
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	public ScreenRenderer getRenderer(Screen gui, int x, int y, int w, int h) {
 		return new ScreenRenderer(gui, x, y, w, h);
 	}
@@ -91,7 +87,6 @@ public class MenuLayoutConfig {
 		}
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	public class ScreenRenderer {
 		private final int x;
 		private final int y;
@@ -153,7 +148,6 @@ public class MenuLayoutConfig {
 		}
 
 		public void start(GuiGraphics g) {
-			this.scr.renderBackground(g);
 			g.blit(MenuLayoutConfig.this.getTexture(), this.x, this.y, 0, 0, this.w, this.h);
 		}
 

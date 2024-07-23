@@ -5,13 +5,13 @@ import dev.xkmc.better_creative_tabs.init.BetterCreativeTabs;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.client.event.ScreenEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.InputEvent;
+import net.neoforged.neoforge.client.event.ScreenEvent;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = BetterCreativeTabs.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(value = Dist.CLIENT, modid = BetterCreativeTabs.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class CreativeTabEventHandler {
 
 	@SubscribeEvent

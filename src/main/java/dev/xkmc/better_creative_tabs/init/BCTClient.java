@@ -1,14 +1,14 @@
 package dev.xkmc.better_creative_tabs.init;
 
 import net.minecraft.client.KeyMapping;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import org.lwjgl.glfw.GLFW;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = BetterCreativeTabs.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(value = Dist.CLIENT, modid = BetterCreativeTabs.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class BCTClient {
 
 	public static KeyMapping CREATIVE = new KeyMapping("better-creative-tabs.creative_index", GLFW.GLFW_KEY_TAB, "better-creative-tabs.creative_index");

@@ -1,9 +1,14 @@
 package dev.xkmc.better_creative_tabs.init;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.config.IConfigSpec;
-import net.minecraftforge.fml.config.ModConfig;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.config.IConfigSpec;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.client.gui.ConfigurationScreen;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
+import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
@@ -13,22 +18,22 @@ public class BCTConfig {
 
 	public static class Client {
 
-		public final ForgeConfigSpec.ConfigValue<List<String>> priorityModTabs;
+		public final ModConfigSpec.ConfigValue<List<? extends String>> priorityModTabs;
 
-		Client(ForgeConfigSpec.Builder builder) {
-
+		Client(ModConfigSpec.Builder builder) {
 			priorityModTabs = builder.comment("List of mod id for which tab will appear first.")
 					.comment(" If you add a library mod without tab here, dependencies of the library mods will be grouped together")
-					.define("priorityModTabs", new ArrayList<>(List.of("l2library", "farmersdelight")));
+					.defineListAllowEmpty("priorityModTabs", new ArrayList<>(List.of("l2library", "farmersdelight")),
+							() -> "create", e -> ModList.get().isLoaded((String) e));
 		}
 
 	}
 
-	public static final ForgeConfigSpec CLIENT_SPEC;
+	public static final ModConfigSpec CLIENT_SPEC;
 	public static final Client CLIENT;
 
 	static {
-		final Pair<Client, ForgeConfigSpec> client = new ForgeConfigSpec.Builder().configure(Client::new);
+		final Pair<Client, ModConfigSpec> client = new ModConfigSpec.Builder().configure(Client::new);
 		CLIENT_SPEC = client.getRight();
 		CLIENT = client.getLeft();
 	}
@@ -40,10 +45,13 @@ public class BCTConfig {
 		register(ModConfig.Type.CLIENT, CLIENT_SPEC);
 	}
 
-	private static void register(ModConfig.Type type, IConfigSpec<?> spec) {
+	private static void register(ModConfig.Type type, IConfigSpec spec) {
 		var mod = ModLoadingContext.get().getActiveContainer();
 		String path = "l2_configs/" + mod.getModId() + "-" + type.extension() + ".toml";
-		ModLoadingContext.get().registerConfig(type, spec, path);
+		mod.registerConfig(type, spec, path);
+		if (FMLEnvironment.dist == Dist.CLIENT) {
+			mod.<IConfigScreenFactory>registerExtensionPoint(IConfigScreenFactory.class, () -> ConfigurationScreen::new);
+		}
 	}
 
 

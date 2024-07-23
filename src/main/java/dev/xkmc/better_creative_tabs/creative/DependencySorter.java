@@ -4,9 +4,10 @@ import dev.xkmc.better_creative_tabs.init.BCTConfig;
 import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraftforge.common.CreativeModeTabRegistry;
-import net.minecraftforge.fml.ModContainer;
-import net.minecraftforge.fml.ModList;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModList;
+import net.neoforged.neoforge.common.CreativeModeTabRegistry;
+import net.neoforged.neoforgespi.language.IModInfo;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -43,7 +44,7 @@ public class DependencySorter {
 		for (var e : modSet) {
 			if (e.mod == null) continue;
 			for (var dep : e.mod.getModInfo().getDependencies()) {
-				if (!dep.isMandatory()) continue;
+				if (dep.getType() != IModInfo.DependencyType.REQUIRED) continue;
 				var par = mods.get(dep.getModId());
 				if (par == null) continue;
 				if (par.mod == null) continue;

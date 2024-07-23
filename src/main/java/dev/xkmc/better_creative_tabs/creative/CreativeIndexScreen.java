@@ -15,6 +15,8 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.client.event.ScreenEvent;
+import net.neoforged.neoforge.common.NeoForge;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -122,12 +124,6 @@ public class CreativeIndexScreen extends Screen {
 		if (isFocused) setFocused(editBox);
 	}
 
-	@Override
-	public void tick() {
-		super.tick();
-		editBox.tick();
-	}
-
 	public boolean charTyped(char key, int mod) {
 		if (!editBox.isFocused()) return false;
 		String s = editBox.getValue();
@@ -209,9 +205,14 @@ public class CreativeIndexScreen extends Screen {
 		return true;
 	}
 
+	@Override
+	public void renderBackground(GuiGraphics g, int mx, int my, float pt) {
+		this.renderMenuBackground(g);
+		NeoForge.EVENT_BUS.post(new ScreenEvent.BackgroundRendered(this, g));
+		this.renderBg(g, pt, mx, my);
+	}
 
 	public void render(GuiGraphics g, int mx, int my, float pTick) {
-		this.renderBg(g, pTick, mx, my);
 		super.render(g, mx, my, pTick);
 		g.pose().pushPose();
 		g.pose().translate(leftPos, topPos, 0.0D);
