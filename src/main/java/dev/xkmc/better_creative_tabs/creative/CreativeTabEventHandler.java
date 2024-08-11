@@ -21,7 +21,7 @@ public class CreativeTabEventHandler {
 		if (player == null) return;
 		if (!player.isCreative()) return;
 		var screen = Minecraft.getInstance().screen;
-		if (screen != null && !(screen instanceof CreativeModeInventoryScreen)) return;
+		if (!(screen instanceof CreativeModeInventoryScreen)) return;
 		CreativeTabGroup.GROUPS = null;
 		CreativeTabList.TABS = null;
 		Minecraft.getInstance().setScreen(new CreativeIndexScreen(0));

@@ -47,7 +47,7 @@ public class BCTConfig {
 
 	private static void register(ModConfig.Type type, IConfigSpec spec) {
 		var mod = ModLoadingContext.get().getActiveContainer();
-		String path = "l2_configs/" + mod.getModId() + "-" + type.extension() + ".toml";
+		String path = "l2configs/" + mod.getModId() + "-" + type.extension() + ".toml";
 		mod.registerConfig(type, spec, path);
 		if (FMLEnvironment.dist == Dist.CLIENT) {
 			mod.<IConfigScreenFactory>registerExtensionPoint(IConfigScreenFactory.class, () -> ConfigurationScreen::new);

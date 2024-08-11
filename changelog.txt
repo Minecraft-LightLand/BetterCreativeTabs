@@ -1,0 +1,2 @@
+0.1.2
+- Make key only works in creative mode menu
