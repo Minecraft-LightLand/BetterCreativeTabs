@@ -1,17 +1,18 @@
 
 package dev.xkmc.better_creative_tabs.util;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.inventory.Slot;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
 
 public class MenuLayoutConfig {
-	public ResourceLocation id;
+	public Identifier id;
 	public int height;
 	public HashMap<String, Rect> side = new HashMap<>();
 	public HashMap<String, Rect> comp = new HashMap<>();
@@ -19,7 +20,7 @@ public class MenuLayoutConfig {
 	public MenuLayoutConfig() {
 	}
 
-	public ResourceLocation getTexture() {
+	public Identifier getTexture() {
 		return id.withPath(e -> "textures/gui/container/" + e + ".png");
 	}
 
@@ -110,48 +111,48 @@ public class MenuLayoutConfig {
 			this.scr = scrIn;
 		}
 
-		public void draw(GuiGraphics g, String c, String s) {
+		public void draw(GuiGraphicsExtractor g, String c, String s) {
 			Rect cr = MenuLayoutConfig.this.getComp(c);
 			Rect sr = MenuLayoutConfig.this.getSide(s);
-			g.blit(MenuLayoutConfig.this.getTexture(), this.x + cr.x, this.y + cr.y, sr.x, sr.y, sr.w, sr.h);
+			blit(g, this.x + cr.x, this.y + cr.y, sr.x, sr.y, sr.w, sr.h);
 		}
 
-		public void draw(GuiGraphics g, String c, String s, int xoff, int yoff) {
+		public void draw(GuiGraphicsExtractor g, String c, String s, int xoff, int yoff) {
 			Rect cr = MenuLayoutConfig.this.getComp(c);
 			Rect sr = MenuLayoutConfig.this.getSide(s);
-			g.blit(MenuLayoutConfig.this.getTexture(), this.x + cr.x + xoff, this.y + cr.y + yoff, sr.x, sr.y, sr.w, sr.h);
+			blit(g, this.x + cr.x + xoff, this.y + cr.y + yoff, sr.x, sr.y, sr.w, sr.h);
 		}
 
-		public void drawBottomUp(GuiGraphics g, String c, String s, int prog, int max) {
+		public void drawBottomUp(GuiGraphicsExtractor g, String c, String s, int prog, int max) {
 			if (prog != 0 && max != 0) {
 				Rect cr = MenuLayoutConfig.this.getComp(c);
 				Rect sr = MenuLayoutConfig.this.getSide(s);
 				int dh = sr.h * prog / max;
-				g.blit(MenuLayoutConfig.this.getTexture(), this.x + cr.x, this.y + cr.y + sr.h - dh, sr.x, sr.y + sr.h - dh, sr.w, dh);
+				blit(g, this.x + cr.x, this.y + cr.y + sr.h - dh, sr.x, sr.y + sr.h - dh, sr.w, dh);
 			}
 		}
 
-		public void drawLeftRight(GuiGraphics g, String c, String s, int prog, int max) {
+		public void drawLeftRight(GuiGraphicsExtractor g, String c, String s, int prog, int max) {
 			if (prog != 0 && max != 0) {
 				Rect cr = MenuLayoutConfig.this.getComp(c);
 				Rect sr = MenuLayoutConfig.this.getSide(s);
 				int dw = sr.w * prog / max;
-				g.blit(MenuLayoutConfig.this.getTexture(), this.x + cr.x, this.y + cr.y, sr.x, sr.y, dw, sr.h);
+				blit(g, this.x + cr.x, this.y + cr.y, sr.x, sr.y, dw, sr.h);
 			}
 		}
 
-		public void drawLiquid(GuiGraphics g, String c, double per, int height, int sw, int sh) {
+		public void drawLiquid(GuiGraphicsExtractor g, String c, double per, int height, int sw, int sh) {
 			Rect cr = MenuLayoutConfig.this.getComp(c);
 			int base = cr.y + height;
 			int h = (int) Math.round(per * (double) height);
 			this.circularBlit(g, this.x + cr.x, base - h, 0, -h, cr.w, h, sw, sh);
 		}
 
-		public void start(GuiGraphics g) {
-			g.blit(MenuLayoutConfig.this.getTexture(), this.x, this.y, 0, 0, this.w, this.h);
+		public void start(GuiGraphicsExtractor g) {
+			blit(g, this.x, this.y, 0, 0, this.w, this.h);
 		}
 
-		private void circularBlit(GuiGraphics g, int sx, int sy, int ix, int iy, int w, int h, int iw, int ih) {
+		private void circularBlit(GuiGraphicsExtractor g, int sx, int sy, int ix, int iy, int w, int h, int iw, int ih) {
 			int x0 = ix;
 			int yb = iy;
 			int x1 = w;
@@ -172,7 +173,7 @@ public class MenuLayoutConfig {
 				int dy;
 				for (int y2 = sy; y1 > 0; y2 += dy) {
 					dy = Math.min(y1, ih - y0);
-					g.blit(MenuLayoutConfig.this.getTexture(), x2, y2, x0, y0, x1, y1);
+					blit(g, x2, y2, x0, y0, x1, y1);
 					y1 -= dy;
 					y0 += dy;
 				}
@@ -183,6 +184,11 @@ public class MenuLayoutConfig {
 			}
 
 		}
+
+		public void blit(GuiGraphicsExtractor g, int x, int y, int u, int v, int w, int h) {
+			g.blit(RenderPipelines.GUI_TEXTURED, MenuLayoutConfig.this.getTexture(), x, y, (float) u, (float) v, w, h, 256, 256);
+		}
+
 	}
 
 	public interface SlotFactory<T extends Slot> {

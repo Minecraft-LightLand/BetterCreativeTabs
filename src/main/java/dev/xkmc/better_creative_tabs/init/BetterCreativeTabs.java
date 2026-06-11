@@ -1,6 +1,6 @@
 package dev.xkmc.better_creative_tabs.init;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.fml.common.Mod;
 
 @Mod(BetterCreativeTabs.MODID)
@@ -12,8 +12,8 @@ public class BetterCreativeTabs {
 		BCTConfig.init();
 	}
 
-	public static ResourceLocation loc(String id) {
-		return ResourceLocation.fromNamespaceAndPath(MODID, id);
+	public static Identifier loc(String id) {
+		return Identifier.fromNamespaceAndPath(MODID, id);
 	}
 
 }

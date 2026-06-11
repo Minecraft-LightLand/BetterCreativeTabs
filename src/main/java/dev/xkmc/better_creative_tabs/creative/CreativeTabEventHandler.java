@@ -11,7 +11,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.client.event.ScreenEvent;
 
-@EventBusSubscriber(value = Dist.CLIENT, modid = BetterCreativeTabs.MODID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(value = Dist.CLIENT, modid = BetterCreativeTabs.MODID)
 public class CreativeTabEventHandler {
 
 	@SubscribeEvent

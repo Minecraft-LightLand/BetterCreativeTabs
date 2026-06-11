@@ -1,25 +1,31 @@
 package dev.xkmc.better_creative_tabs.creative;
 
 import dev.xkmc.better_creative_tabs.mixin.CreativeModeInventoryScreenAccessor;
+import dev.xkmc.better_creative_tabs.util.GuiHelper;
 import dev.xkmc.better_creative_tabs.util.MenuLayoutConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
+import net.minecraft.client.input.CharacterEvent;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.client.event.ScreenEvent;
-import net.neoforged.neoforge.common.NeoForge;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 
 public class CreativeIndexScreen extends Screen {
 
@@ -110,10 +116,10 @@ public class CreativeIndexScreen extends Screen {
 	}
 
 	@Override
-	public void resize(Minecraft mc, int x, int y) {
+	public void resize(int width, int height) {
 		initialText = editBox.getValue();
 		boolean isFocused = editBox.isFocused();
-		super.resize(mc, x, y);
+		super.resize(width, height);
 		if (isFocused) setFocused(editBox);
 	}
 
@@ -124,10 +130,11 @@ public class CreativeIndexScreen extends Screen {
 		if (isFocused) setFocused(editBox);
 	}
 
-	public boolean charTyped(char key, int mod) {
+	@Override
+	public boolean charTyped(CharacterEvent event) {
 		if (!editBox.isFocused()) return false;
 		String s = editBox.getValue();
-		if (editBox.charTyped(key, mod)) {
+		if (editBox.charTyped(event)) {
 			if (!Objects.equals(s, editBox.getValue())) {
 				rebuildTabList();
 			}
@@ -136,21 +143,22 @@ public class CreativeIndexScreen extends Screen {
 		return false;
 	}
 
-	public boolean keyPressed(int key, int mod, int scan) {
+	@Override
+	public boolean keyPressed(KeyEvent event) {
 		String s = editBox.getValue();
-		if (editBox.keyPressed(key, mod, scan)) {
+		if (editBox.keyPressed(event)) {
 			if (!Objects.equals(s, editBox.getValue())) {
 				rebuildTabList();
 			}
 			return true;
 		}
 		if (editBox.isFocused() && editBox.isVisible()) {
-			if (key == 256) {
+			if (event.key() == 256) {
 				editBox.setFocused(false);
 			}
 			return true;
 		}
-		return super.keyPressed(key, mod, scan);
+		return super.keyPressed(event);
 	}
 
 	private void click(int btn) {
@@ -158,10 +166,10 @@ public class CreativeIndexScreen extends Screen {
 		reinit();
 	}
 
-	protected void renderLabels(GuiGraphics g, int mx, int my) {
+	protected void renderLabels(GuiGraphicsExtractor g, int mx, int my) {
 		int maxPage = (tabs.size() - 1) / MAX + 1;
 		String count = " (" + (page + 1) + "/" + maxPage + ")";
-		g.drawString(font, TITLE.copy().append(count), 8, 6, 4210752, false);
+		g.text(font, TITLE.copy().append(count), 8, 6, 0xFF404040, false);
 	}
 
 	@Nullable
@@ -171,20 +179,20 @@ public class CreativeIndexScreen extends Screen {
 		return tabs.get(ind);
 	}
 
-	protected void renderTooltip(GuiGraphics g, Font font, CreativeModeTab hovered, int mx, int my) {
-		g.renderTooltip(font, List.of(
+	protected void renderTooltip(GuiGraphicsExtractor g, Font font, CreativeModeTab hovered, int mx, int my) {
+		GuiHelper.tooltip(g, List.of(
 				hovered.getDisplayName(),
 				Component.literal(BuiltInRegistries.CREATIVE_MODE_TAB.getKey(hovered).toString())
 						.withStyle(ChatFormatting.DARK_GRAY)
-		), Optional.empty(), mx, my);
+		), mx, my);
 	}
 
 	@Override
-	public boolean mouseReleased(double mx, double my, int button) {
-		if (super.mouseReleased(mx, my, button)) {
+	public boolean mouseReleased(MouseButtonEvent event) {
+		if (super.mouseReleased(event)) {
 			return true;
 		}
-		SlotResult result = findSlot(mx, my);
+		SlotResult result = findSlot(event.x(), event.y());
 		if (result == null) return false;
 		int ind = result.x() + result.y() * 9 + page * MAX;
 		if (ind >= tabs.size()) return false;
@@ -206,31 +214,28 @@ public class CreativeIndexScreen extends Screen {
 	}
 
 	@Override
-	public void renderBackground(GuiGraphics g, int mx, int my, float pt) {
-		this.renderMenuBackground(g);
-		NeoForge.EVENT_BUS.post(new ScreenEvent.BackgroundRendered(this, g));
-		this.renderBg(g, pt, mx, my);
-	}
-
-	public void render(GuiGraphics g, int mx, int my, float pTick) {
-		super.render(g, mx, my, pTick);
-		g.pose().pushPose();
-		g.pose().translate(leftPos, topPos, 0.0D);
+	public void extractBackground(GuiGraphicsExtractor g, int mx, int my, float pTick) {
+		super.extractBackground(g, mx, my, pTick);
+		this.renderBg(g, pTick, mx, my);
+		g.pose().pushMatrix();
+		g.pose().translate(leftPos, topPos);
 		hovered = null;
 		for (String c : slots) {
 			renderSlotComp(g, c, mx, my);
 		}
 		this.renderLabels(g, mx, my);
 		if (hovered != null) {
-			g.pose().pushPose();
-			g.pose().translate(-leftPos, -topPos, 0);
+			g.pose().pushMatrix();
+			g.pose().translate(-leftPos, -topPos);
 			renderTooltip(g, font, hovered, mx, my);
-			g.pose().popPose();
+			g.pose().popMatrix();
 		}
-		g.pose().popPose();
+		g.pose().popMatrix();
 	}
 
-	private void renderSlotComp(GuiGraphics pose, String name, int mx, int my) {
+	private static final Identifier SLOT_HIGHLIGHT_FRONT_SPRITE = Identifier.withDefaultNamespace("container/slot_highlight_front");
+
+	private void renderSlotComp(GuiGraphicsExtractor g, String name, int mx, int my) {
 		var comp = manager.getComp(name);
 		for (int i = 0; i < comp.rx; i++) {
 			for (int j = 0; j < comp.ry; j++) {
@@ -238,24 +243,24 @@ public class CreativeIndexScreen extends Screen {
 				int sy = comp.y + comp.h * j;
 				var stack = getStack(name, i, j);
 				if (stack == null) continue;
-				this.renderSlot(pose, sx, sy, stack.getIconItem());
+				this.renderSlot(g, sx, sy, stack.getIconItem());
 				if (this.isHovering(name, i, j, mx, my)) {
-					AbstractContainerScreen.renderSlotHighlight(pose, sx, sy, -2130706433);
+					g.blitSprite(RenderPipelines.GUI_TEXTURED, SLOT_HIGHLIGHT_FRONT_SPRITE, sx - 4, sy - 4, 24, 24);
 					hovered = stack;
 				}
 			}
 		}
 	}
 
-	private void renderSlot(GuiGraphics g, int x, int y, ItemStack stack) {
+	private void renderSlot(GuiGraphicsExtractor g, int x, int y, ItemStack stack) {
 		String s = null;
 		assert this.minecraft != null;
 		assert this.minecraft.player != null;
-		g.renderItem(stack, x, y, x + y * this.imageWidth);
-		g.renderItemDecorations(this.font, stack, x, y, s);
+		g.item(stack, x, y, x + y * this.imageWidth);
+		g.itemDecorations(this.font, stack, x, y, s);
 	}
 
-	private void renderBg(GuiGraphics stack, float pt, int mx, int my) {
+	private void renderBg(GuiGraphicsExtractor stack, float pt, int mx, int my) {
 		var sr = manager.new ScreenRenderer(this, leftPos, topPos, imageWidth, imageHeight);
 		sr.start(stack);
 	}

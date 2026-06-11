@@ -8,10 +8,11 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import org.lwjgl.glfw.GLFW;
 
-@EventBusSubscriber(value = Dist.CLIENT, modid = BetterCreativeTabs.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(value = Dist.CLIENT, modid = BetterCreativeTabs.MODID)
 public class BCTClient {
 
-	public static KeyMapping CREATIVE = new KeyMapping("better-creative-tabs.creative_index", GLFW.GLFW_KEY_TAB, "better-creative-tabs.creative_index");
+	public static KeyMapping CREATIVE = new KeyMapping("better-creative-tabs.creative_index", GLFW.GLFW_KEY_TAB,
+			new KeyMapping.Category(BetterCreativeTabs.loc("keys")));
 
 	@SubscribeEvent
 	public static void client(FMLClientSetupEvent event) {
