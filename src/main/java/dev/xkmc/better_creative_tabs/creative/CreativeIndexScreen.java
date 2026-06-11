@@ -68,15 +68,15 @@ public class CreativeIndexScreen extends Screen {
 		this.leftPos = (this.width - imageWidth) / 2;
 		this.topPos = (this.height - imageHeight) / 2;
 
-		if (editBox == null) {
-			editBox = new EditBox(font, leftPos + 8, topPos + 19, 80, 9,
-					Component.translatable("itemGroup.search"));
-			editBox.setValue(initialText);
-			editBox.setMaxLength(50);
-			editBox.setBordered(true);
-			editBox.setVisible(true);
-			editBox.setTextColor(-1);
-		}
+
+		editBox = new EditBox(font, leftPos + 8, topPos + 19, 80, 9,
+				Component.translatable("itemGroup.search"));
+		editBox.setValue(initialText);
+		editBox.setMaxLength(50);
+		editBox.setBordered(true);
+		editBox.setVisible(true);
+		editBox.setTextColor(-1);
+
 		addRenderableWidget(editBox);
 		rebuildTabList();
 
