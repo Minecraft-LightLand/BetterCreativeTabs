@@ -69,7 +69,7 @@ public class CreativeIndexScreen extends Screen {
 		this.topPos = (this.height - imageHeight) / 2;
 
 
-		editBox = new EditBox(font, leftPos + 8, topPos + 19, 80, 9,
+		editBox = new EditBox(font, leftPos + 7, topPos + 17, 80, 12,
 				Component.translatable("itemGroup.search"));
 		editBox.setValue(initialText);
 		editBox.setMaxLength(50);
