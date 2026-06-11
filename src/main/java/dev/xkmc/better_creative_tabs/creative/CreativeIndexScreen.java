@@ -1,7 +1,6 @@
 package dev.xkmc.better_creative_tabs.creative;
 
 import dev.xkmc.better_creative_tabs.mixin.CreativeModeInventoryScreenAccessor;
-import dev.xkmc.better_creative_tabs.util.GuiHelper;
 import dev.xkmc.better_creative_tabs.util.MenuLayoutConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -22,10 +21,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
+import java.util.*;
 
 public class CreativeIndexScreen extends Screen {
 
@@ -79,7 +75,7 @@ public class CreativeIndexScreen extends Screen {
 			editBox.setMaxLength(50);
 			editBox.setBordered(true);
 			editBox.setVisible(true);
-			editBox.setTextColor(16777215);
+			editBox.setTextColor(-1);
 		}
 		addRenderableWidget(editBox);
 		rebuildTabList();
@@ -180,11 +176,11 @@ public class CreativeIndexScreen extends Screen {
 	}
 
 	protected void renderTooltip(GuiGraphicsExtractor g, Font font, CreativeModeTab hovered, int mx, int my) {
-		GuiHelper.tooltip(g, List.of(
+		g.setTooltipForNextFrame(font, List.of(
 				hovered.getDisplayName(),
 				Component.literal(BuiltInRegistries.CREATIVE_MODE_TAB.getKey(hovered).toString())
 						.withStyle(ChatFormatting.DARK_GRAY)
-		), mx, my);
+		), Optional.empty(), mx, my);
 	}
 
 	@Override

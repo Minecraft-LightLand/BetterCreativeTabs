@@ -1,14 +1,14 @@
 package dev.xkmc.better_creative_tabs.creative;
 
 import dev.xkmc.better_creative_tabs.init.BetterCreativeTabs;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 
-public class AllTabsButton extends Button {
+public class AllTabsButton extends Button.Plain {
 
 	public static final Identifier TEX = BetterCreativeTabs.loc("textures/gui/icon.png");
 
@@ -19,7 +19,8 @@ public class AllTabsButton extends Button {
 
 	@Override
 	protected void extractContents(GuiGraphicsExtractor g, int i, int i1, float v) {
-		g.blit(TEX, getX() + 2, getY() + 2, 0, 0, 16, 16, 16, 16);
+		this.extractDefaultSprite(g);
+		g.blit(RenderPipelines.GUI_TEXTURED, TEX, getX() + 2, getY() + 2, 0, 0, 16, 16, 16, 16, 16, 16);
 	}
 
 }
