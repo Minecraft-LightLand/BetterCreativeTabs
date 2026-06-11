@@ -21,10 +21,11 @@ public class BCTConfig {
 		public final ModConfigSpec.ConfigValue<List<? extends String>> priorityModTabs;
 
 		Client(ModConfigSpec.Builder builder) {
+			var prev = List.of("l2library", "farmersdelight");
 			priorityModTabs = builder.comment("List of mod id for which tab will appear first.")
 					.comment(" If you add a library mod without tab here, dependencies of the library mods will be grouped together")
-					.defineListAllowEmpty("priorityModTabs", new ArrayList<>(List.of("l2library", "farmersdelight")),
-							() -> "create", e -> ModList.get().isLoaded((String) e));
+					.defineListAllowEmpty("priorityModTabs", new ArrayList<>(prev),
+							() -> "create", e -> ModList.get().isLoaded((String) e) || prev.contains(e));
 		}
 
 	}

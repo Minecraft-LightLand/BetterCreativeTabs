@@ -1,2 +1,2 @@
-0.1.2
-- Make key only works in creative mode menu
+26.1.0.1
+- Fix crash
