@@ -128,7 +128,7 @@ public class CreativeIndexScreen extends Screen {
 
 	@Override
 	public boolean charTyped(CharacterEvent event) {
-		if (!editBox.isFocused()) return false;
+		if (!editBox.isFocused()) return super.charTyped(event);
 		String s = editBox.getValue();
 		if (editBox.charTyped(event)) {
 			if (!Objects.equals(s, editBox.getValue())) {
@@ -136,7 +136,7 @@ public class CreativeIndexScreen extends Screen {
 			}
 			return true;
 		}
-		return false;
+		return super.charTyped(event);
 	}
 
 	@Override
@@ -151,6 +151,7 @@ public class CreativeIndexScreen extends Screen {
 		if (editBox.isFocused() && editBox.isVisible()) {
 			if (event.key() == 256) {
 				editBox.setFocused(false);
+				setFocused(null);
 			}
 			return true;
 		}
